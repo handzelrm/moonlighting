@@ -71,7 +71,17 @@ def pickle_data(path,file):
     shaffiey = myModules.Resident('Shahab','Shaffiey','shaffieysa@upmc.edu',7)
     mcdonald = myModules.Resident('KerryAnn','McDonald','stewartkc@upmc.edu',7)
 
-    residents = [berkey,cunningham,dyer,goswami,griepentrog,handzel,kirk,kowalsky,leeper,lewis,okolo,siow,tam,torres,vanderwindt,yeh,uy,chen,schusterman,browning,theisen,shaffiey,mcdonald]
+    cyr = myModules.Resident('Anthony','Cyr','cyrar@upmc.edu',4)
+    dadashzadeh = myModules.Resident('Esmaeel','Dadashzadeh','dadashzadeher@upmc.edu',4)
+    gallagher = myModules.Resident('James','Gallagher','gallagherjw@upmc.edu',4)
+    huckaby = myModules.Resident('Lauren','Huckaby','huckabylv@upmc.edu',4)
+    kulkarni = myModules.Resident('Shreyus','Kulkarni','kulkarniss@upmc.edu',4)
+    myers = myModules.Resident('Sara','Myers','myerssp@upmc.edu',4)
+    nicholson = myModules.Resident('Kristina','Nicholson','nicholsonkj@upmc.edu',4)
+    egro = myModules.Resident('Francesco','Egro','egrofm@upmc.edu',4)
+    yecies = myModules.Resident('Todd','Yecies','yeciest@upmc.edu',4)
+
+    residents = [berkey,cunningham,dyer,goswami,griepentrog,handzel,kirk,kowalsky,leeper,lewis,okolo,siow,tam,torres,vanderwindt,yeh,uy,chen,schusterman,browning,theisen,shaffiey,mcdonald,cyr,dadashzadeh,gallagher,huckaby,kulkarni,myers,nicholson,egro,yecies]
     
     with open(path+'residents.pickle','wb') as f:
         pickle.dump(residents,f)
