@@ -247,6 +247,9 @@ def service_ical(path,file):
         with open(path+'service icals/'+month_str+'/'+'{}{}_Call.ics'.format(month_str,service),'wb') as f:
             f.write(cal.to_ical())
 
+def check_ct():
+    pass
+
 path=find_path()
 file = 'June 2017 Moonlighting Final Testing.xlsm'
 
