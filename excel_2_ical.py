@@ -10,13 +10,15 @@ import numpy as np
 import pickle
 import os
 
-def find_path():
-    if os.path.isdir('C:/Users/Rober/Google Drive/Python/WinPython-64bit-3.4.4.3Qt5/settings/.spyder-py3/call/'):
+def find_path(file):
+    if os.path.isfile('C:/Users/Rober/Google Drive/Python/WinPython-64bit-3.4.4.3Qt5/settings/.spyder-py3/call/'+file):
         path = 'C:/Users/Rober/Google Drive/Python/WinPython-64bit-3.4.4.3Qt5/settings/.spyder-py3/call/'
-    elif os.path.isdir('I:/Google Drive/Python/WinPython-64bit-3.4.4.3Qt5/settings/.spyder-py3/call/'):
+    elif os.path.isfile('I:/Google Drive/Python/WinPython-64bit-3.4.4.3Qt5/settings/.spyder-py3/call/'+file):
         path =  'I:/Google Drive/Python/WinPython-64bit-3.4.4.3Qt5/settings/.spyder-py3/call/'
+    elif os.path.isfile('I:/Google Drive/GitHub/moonlighting/'+file):
+        path = 'I:/Google Drive/GitHub/moonlighting/'
     else:
-        print('Error')
+        print('Error - no file found in any directories')
         path = None
     return path
 
@@ -25,8 +27,11 @@ def pickle_data(path,file):
     # path_desktop = 'I:/Google Drive/Python/WinPython-64bit-3.4.4.3Qt5/settings/.spyder-py3/'
     # path_laptop = 'C:/Users/Rober/Google Drive/Python/WinPython-64bit-3.4.4.3Qt5/settings/.spyder-py3/'
 
+    if not os.path.isdir(path+'pickles/'):
+        os.makedirs(path+'pickles/')
+
     df = pd.read_excel(path+file,sheetname='Master')
-    pd.to_pickle(df,path+'call_schedule.pickle')
+    pd.to_pickle(df,path+'pickles/'+'call_schedule.pickle')
 
     #creates objects for each service
     trauma = myModules.Call('Trauma',datetime.time(18,30),datetime.time(7,30))
@@ -43,7 +48,7 @@ def pickle_data(path,file):
     callTimes = {'Trauma':trauma,'CT':ct, 'CHP Sr.':chp_sr, 'CHP Jr.':chp_jr,
                  'SHY':shy, 'Transplant':transplant}
 
-    with open(path+'callTimes.pickle','wb') as f:
+    with open(path+'pickles/'+'callTimes.pickle','wb') as f:
         pickle.dump(callTimes,f)
     
     #creates resident objects
@@ -83,16 +88,16 @@ def pickle_data(path,file):
 
     residents = [berkey,cunningham,dyer,goswami,griepentrog,handzel,kirk,kowalsky,leeper,lewis,okolo,siow,tam,torres,vanderwindt,yeh,uy,chen,schusterman,browning,theisen,shaffiey,mcdonald,cyr,dadashzadeh,gallagher,huckaby,kulkarni,myers,nicholson,egro,yecies]
     
-    with open(path+'residents.pickle','wb') as f:
+    with open(path+'pickles/'+'residents.pickle','wb') as f:
         pickle.dump(residents,f)
 
     #may be able to replace with a fxn at some point but works for now
     month = {'January':1, 'February':2, 'March':3, 'April':4, 'May':5, 'June':6, 'July':7, 'August':8, 'September':9, 'October':10, 'November':11, 'December':12}
-    with open(path+'month.pickle','wb') as f:
+    with open(path+'pickles/'+'month.pickle','wb') as f:
         pickle.dump(month,f)
 
     services = ['Trauma','SHY','CHP Sr.', 'CHP Jr.','CT']
-    with open(path+'services.pickle','wb') as f:
+    with open(path+'pickles/'+'services.pickle','wb') as f:
         pickle.dump(services,f)
 
 """
@@ -117,22 +122,22 @@ def createCalendar(cal,eventName,datetimeStart,datetimeEnd):
 
 def resident_ical(path, file, send=False):
     #loads call schedule as pandas df
-    df = pd.read_pickle(path+'call_schedule.pickle')
+    df = pd.read_pickle(path+'pickles/'+'call_schedule.pickle')
 
     #loads call times from pickle
-    with open(path+'callTimes.pickle','rb') as f:
+    with open(path+'pickles/'+'callTimes.pickle','rb') as f:
         callTimes = pickle.load(f)
 
     #loads residents list of objects from pickle
-    with open(path+'residents.pickle','rb') as f:
+    with open(path+'pickles/'+'residents.pickle','rb') as f:
         residents = pickle.load(f)
 
     #loads services dictionary from pickle
-    with open(path+'services.pickle','rb') as f:
+    with open(path+'pickles/'+'services.pickle','rb') as f:
         services = pickle.load(f)
 
     #loads month dictionary from pickle
-    with open(path+'month.pickle','rb') as f:
+    with open(path+'pickles/'+'month.pickle','rb') as f:
         month = pickle.load(f)
 
     regex = re.search(r'(\w+) (\d+) Moonlighting',file)
@@ -171,7 +176,7 @@ def resident_ical(path, file, send=False):
 
                 cal = createCalendar(cal,curService,callStart,callEnd) #updates the cal file
 
-            with open(path+'resident icals/'+month_str+'/'+'{}_{}_Call.ics'.format('June',res),'wb') as f:
+            with open(path+'resident icals/'+month_str+'/'+'{}_{}_Call.ics'.format(month_str,res),'wb') as f:
                 f.write(cal.to_ical())
 
             curResident = myModules.Staff.find_lastname(residents,res) #will be used in sendoutlookemail)
@@ -250,9 +255,9 @@ def service_ical(path,file):
 def check_ct():
     pass
 
-path=find_path()
-file = 'June 2017 Moonlighting Final Testing.xlsm'
+file = 'July 2017 Moonlighting Final.xlsm'
+path=find_path(file)
 
 pickle_data(path=path, file=file)
-resident_ical(path=path, file=file, send=True)
-service_ical(path=path, file=file)
+resident_ical(path=path, file=file, send=False)
+# service_ical(path=path, file=file)
