@@ -37,8 +37,8 @@ def pickle_data(path,file):
     trauma = myModules.Call('Trauma',datetime.time(18,30),datetime.time(7,30))
     ct = myModules.Call('CT',datetime.time(18,0),datetime.time(6,0))
     ct.fri = myModules.Day(datetime.time(18,0),datetime.time(7,0))
-    ct.sat = myModules.Day(datetime.time(17,0),datetime.time(7,0))
-    ct.sun = myModules.Day(datetime.time(17,0),datetime.time(6,0))
+    ct.sat = myModules.Day(datetime.time(13,0),datetime.time(7,0))
+    ct.sun = myModules.Day(datetime.time(13,0),datetime.time(6,0))
     chp_sr = myModules.Call('CHP Sr.',datetime.time(18,0),datetime.time(6,0))
     chp_jr = myModules.Call('CHP Jr.',datetime.time(18,0),datetime.time(6,0))
     shy = myModules.Call('SHY',datetime.time(18,0),datetime.time(6,0))
@@ -183,22 +183,23 @@ def resident_ical(path, file, send=False):
             
             if send:
                 print(curResident.upmc_email)
-                sendOutlookEmail('handzelrm@upmc.edu', month_str+' Call Schedule and iCalendar File', 'Hi,\n\nAttached is the final version of the June call schedule as well as an iCalendar file with your call schedule. The iCal file can simply be dragged into your Outlook calendar or uploaded to Google Calendar via the Calendar Settings -> Import calendar. Please let me know if there are any problems.\n\nThanks,\nRob', path+file, path+'resident icals/'+month_str+'/'+month_str+'_'+res+'_Call.ics') 
-                return       
+                sendOutlookEmail(curResident.upmc_email, month_str+' iCalendar File', 'Hi,\n\nAttached is your iCalendar file for the month of {}. The iCal file can simply be dragged into your Outlook calendar or uploaded to Google Calendar via the Calendar Settings -> Import calendar. Please let me know if there are any problems. You can always access the most up to date schedule and files at:\nhttps://github.com/handzelrm/moonlighting\n\nThanks,\nRob'.format(month_str), path+'resident icals/'+month_str+'/'+month_str+'_'+res+'_Call.ics') 
+                # return       
             else:
-                print('\n'+curResident.upmc_email+'\n'+month_str+' Call Schedule and iCalendar File', '\nHi,\n\nAttached is the final version of the June call schedule as well as an iCalendar file with your call schedule. The iCal file can simply be dragged into your Outlook calendar or uploaded to Google Calendar via the Calendar Settings -> Import calendar. Please let me know if there are any problems.\n\nThanks,\nRob')
+                print('\n'+curResident.upmc_email+'\n'+month_str+' iCalendar File', '\nHi,\n\nAttached is your iCalendar file for the month of {}. The iCal file can simply be dragged into your Outlook calendar or uploaded to Google Calendar via the Calendar Settings -> Import calendar. Please let me know if there are any problems. You can always access the most up to date schedule and files at:\nhttps://github.com/handzelrm/moonlighting\n\nThanks,\nRob'.format(month_str))
+                
 
 """
 sendOutlookEmail takes inputs who to send it to, subject, body, attachment and will
 send an email as such using a local outlook application
 """
-def sendOutlookEmail(to,subject,body,excel_attachment,ical_attachment):
+def sendOutlookEmail(to,subject,body,ical_attachment):
     outlook = win32.Dispatch('Outlook.Application') #creates outlook applicatoin object
     mail = outlook.CreateItem(0) #creates outlook item mail
     mail.To = to #adds who to send it to
     mail.Subject = subject #adds subject
     mail.Body = body #adds body
-    mail.Attachments.Add(excel_attachment)
+    # mail.Attachments.Add(excel_attachment)
     mail.Attachments.Add(ical_attachment) #adds attachment
     mail.Send() #sends message
 
