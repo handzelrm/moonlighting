@@ -17,6 +17,8 @@ def find_path(file):
         path =  'I:/Google Drive/Python/WinPython-64bit-3.4.4.3Qt5/settings/.spyder-py3/call/'
     elif os.path.isfile('I:/Google Drive/GitHub/moonlighting/'+file):
         path = 'I:/Google Drive/GitHub/moonlighting/'
+    elif os.path.isfile('C:/Users/Rober/Google Drive/GitHub/moonlighting/'+file):
+        path = 'C:/Users/Rober/Google Drive/GitHub/moonlighting/'
     else:
         print('Error - no file found in any directories')
         path = None
@@ -256,9 +258,17 @@ def service_ical(path,file):
 def check_ct():
     pass
 
-file = 'July 2017 Moonlighting Final.xlsm'
-path=find_path(file)
+def main():
 
-pickle_data(path=path, file=file)
-resident_ical(path=path, file=file, send=False)
-# service_ical(path=path, file=file)
+
+    file = 'August 2017 Moonlighting Final.xlsm'
+    path=find_path(file)
+    print(path)
+
+    pickle_data(path=path, file=file)
+    resident_ical(path=path, file=file, send=False)
+    # service_ical(path=path, file=file)
+
+
+if __name__ == '__main__':
+    main()
