@@ -45,10 +45,11 @@ def pickle_data(path,file):
     chp_jr = myModules.Call('CHP Jr.',datetime.time(18,0),datetime.time(6,0))
     shy = myModules.Call('SHY',datetime.time(18,0),datetime.time(6,0))
     transplant = myModules.Call('Transplant',datetime.time(18,0),datetime.time(6,0))
+    six_fg = myModules.Call('6FG',datetime.time(16,0),datetime.time(6,0))
 
     #creates dictionary of all service objects
     callTimes = {'Trauma':trauma,'CT':ct, 'CHP Sr.':chp_sr, 'CHP Jr.':chp_jr,
-                 'SHY':shy, 'Transplant':transplant}
+                 'SHY':shy, 'Transplant':transplant, '6FG':six_fg}
 
     with open(path+'pickles/'+'callTimes.pickle','wb') as f:
         pickle.dump(callTimes,f)
@@ -98,7 +99,7 @@ def pickle_data(path,file):
     with open(path+'pickles/'+'month.pickle','wb') as f:
         pickle.dump(month,f)
 
-    services = ['Trauma','SHY','CHP Sr.', 'CHP Jr.','CT']
+    services = ['Trauma','SHY','CHP Sr.', 'CHP Jr.','CT','6FG']
     with open(path+'pickles/'+'services.pickle','wb') as f:
         pickle.dump(services,f)
 
@@ -261,7 +262,7 @@ def check_ct():
 def main():
 
 
-    file = 'August 2017 Moonlighting Final.xlsm'
+    file = 'September 2017 Moonlighting Final.xlsm'
     path=find_path(file)
     print(path)
 
