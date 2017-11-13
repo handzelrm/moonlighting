@@ -267,7 +267,7 @@ def main():
     print(path)
 
     pickle_data(path=path, file=file)
-    resident_ical(path=path, file=file, send=False)
+    resident_ical(path=path, file=file, send=True)
     # service_ical(path=path, file=file)
 
 
