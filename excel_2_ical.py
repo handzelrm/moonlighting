@@ -262,12 +262,12 @@ def check_ct():
 def main():
 
 
-    file = 'November 2017 Moonlighting Final.xlsm'
+    file = 'December 2017 Moonlighting Final.xlsm'
     path=find_path(file)
     print(path)
 
     pickle_data(path=path, file=file)
-    resident_ical(path=path, file=file, send=True)
+    resident_ical(path=path, file=file, send=False)
     # service_ical(path=path, file=file)
 
 
