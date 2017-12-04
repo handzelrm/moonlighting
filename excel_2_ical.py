@@ -256,8 +256,13 @@ def service_ical(path,file):
         with open(path+'service icals/'+month_str+'/'+'{}{}_Call.ics'.format(month_str,service),'wb') as f:
             f.write(cal.to_ical())
 
-def check_ct():
-    pass
+def run(file,send=False):
+    path = find_path(file)
+    print(path)
+    pickle_data(path=path, file=file)
+    resident_ical(path=path, file=file, send=send)
+
+
 
 def main():
 
