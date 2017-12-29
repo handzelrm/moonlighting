@@ -143,7 +143,7 @@ def resident_ical(path, file, send=False):
     with open(path+'pickles/'+'month.pickle','rb') as f:
         month = pickle.load(f)
 
-    regex = re.search(r'(\w+) (\d+) Moonlighting',file)
+    regex = re.search(r'(\w+) (\d+) .* Moonlighting',file)
     month_str = regex.group(1)
     month = month[month_str]
     year = int(regex.group(2))
@@ -267,7 +267,7 @@ def run(file,send=False):
 def main():
 
 
-    file = 'January Holiday 2018 Moonlighting Final.xlsm'
+    file = 'January 2018 Holiday Moonlighting Final.xlsm'
     path=find_path(file)
     print(path)
 
