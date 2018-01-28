@@ -46,10 +46,11 @@ def pickle_data(path,file):
     shy = myModules.Call('SHY',datetime.time(18,0),datetime.time(6,0))
     transplant = myModules.Call('Transplant',datetime.time(18,0),datetime.time(6,0))
     six_fg = myModules.Call('6FG',datetime.time(16,0),datetime.time(6,0))
+    vasc = myModules.Call('VASC',datetime.time(18,00),datetime.time(14,00))
 
     #creates dictionary of all service objects
     callTimes = {'Trauma':trauma,'CT':ct, 'CHP Sr.':chp_sr, 'CHP Jr.':chp_jr,
-                 'SHY':shy, 'Transplant':transplant, '6FG':six_fg}
+                 'SHY':shy, 'Transplant':transplant, '6FG':six_fg, 'VASC':vasc}
 
     with open(path+'pickles/'+'callTimes.pickle','wb') as f:
         pickle.dump(callTimes,f)
@@ -99,7 +100,7 @@ def pickle_data(path,file):
     with open(path+'pickles/'+'month.pickle','wb') as f:
         pickle.dump(month,f)
 
-    services = ['Trauma','SHY','CHP Sr.', 'CHP Jr.','CT','6FG']
+    services = ['Trauma','SHY','CHP Sr.', 'CHP Jr.','CT','6FG','VASC']
     with open(path+'pickles/'+'services.pickle','wb') as f:
         pickle.dump(services,f)
 
@@ -267,12 +268,12 @@ def run(file,send=False):
 def main():
 
 
-    file = 'January 2018 Moonlighting Final.xlsm'
+    file = 'February 2018 Moonlighting Prelim.xlsm'
     path=find_path(file)
     print(path)
 
     pickle_data(path=path, file=file)
-    resident_ical(path=path, file=file, send=True)
+    resident_ical(path=path, file=file, send=False)
 
     # service_ical(path=path, file=file)
 
