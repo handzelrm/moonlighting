@@ -56,30 +56,13 @@ def pickle_data(path,file):
         pickle.dump(callTimes,f)
     
     #creates resident objects
-    berkey = myModules.Resident('Sara','Berkey','berkeyse@upmc.edu',5)
-    cunningham = myModules.Resident('Kellie','Cunningham','cunninghamke@upmc.edu',6)
-    dyer = myModules.Resident('Mitchell','Dyer','dyermr@upmc.edu',5)
-    goswami = myModules.Resident('Julie','Goswami','goswamij@upmc.edu',5)
     griepentrog = myModules.Resident('John', 'Griepentrog','griepentrogje@upmc.edu',4)
     handzel = myModules.Resident('Robert', 'Handzel','handzelrm@upmc.edu',4)
-    kirk = myModules.Resident('Katherine','Hill (Kirk)','kirkka@upmc.edu',4)
-    kowalsky = myModules.Resident('Stacy','Kowalsky','kowalskysj@upmc.edu',5)
-    leeper = myModules.Resident('Christine','Leeper','leepercm@upmc.edu',6)
-    lewis = myModules.Resident('Anthony','Lewis','lewisaj@upmc.edu',6)
     okolo = myModules.Resident('Frances','Okolo','okolofc@upmc.edu',4)
     siow = myModules.Resident('Shaun','Siow','siowv@upmc.edu',4)
     tam = myModules.Resident('Vernissia','Tam','tamvw@upmc.edu',4)
-    torres = myModules.Resident('Crisanto','Torres','torrescm@upmc.edu',5)
     vanderwindt = myModules.Resident('Dirk','Van Der Windt','vanderwindtd@upmc.edu',5)
     yeh = myModules.Resident('Andrew','Yeh','yeha@upmc.edu',5)
-    uy = myModules.Resident('Jamie','Uy','uyjt@upmc.edu',4)
-    chen = myModules.Resident('Wendy','Chen','chenw2@upmc.edu',4)
-    schusterman = myModules.Resident('Ash','Schusterman','schustermanma@upmc.edu',4)
-    browning = myModules.Resident('Jeff','Browning','browningjd@upmc.edu',4)
-    theisen = myModules.Resident('Katie', 'Theisen','theisenkm@upmc.edu',4)
-    shaffiey = myModules.Resident('Shahab','Shaffiey','shaffieysa@upmc.edu',7)
-    mcdonald = myModules.Resident('KerryAnn','McDonald','stewartkc@upmc.edu',7)
-
     cyr = myModules.Resident('Anthony','Cyr','cyrar@upmc.edu',4)
     dadashzadeh = myModules.Resident('Esmaeel','Dadashzadeh','dadashzadeher@upmc.edu',4)
     gallagher = myModules.Resident('James','Gallagher','gallagherjw@upmc.edu',4)
@@ -89,8 +72,30 @@ def pickle_data(path,file):
     nicholson = myModules.Resident('Kristina','Nicholson','nicholsonkj@upmc.edu',4)
     egro = myModules.Resident('Francesco','Egro','egrofm@upmc.edu',4)
     yecies = myModules.Resident('Todd','Yecies','yeciest@upmc.edu',4)
+    beidas = myModules.Resident('Omar', 'Beidas', 'beidaso@upmc.edu',4)
+    hugar = myModules.Resident('Hugar', '_', '_', 5)
+    
+    # berkey = myModules.Resident('Sara','Berkey','berkeyse@upmc.edu',5)
+    # cunningham = myModules.Resident('Kellie','Cunningham','cunninghamke@upmc.edu',6)
+    # dyer = myModules.Resident('Mitchell','Dyer','dyermr@upmc.edu',5)
+    # goswami = myModules.Resident('Julie','Goswami','goswamij@upmc.edu',5)
+    # kirk = myModules.Resident('Katherine','Hill (Kirk)','kirkka@upmc.edu',4)
+    # kowalsky = myModules.Resident('Stacy','Kowalsky','kowalskysj@upmc.edu',5)
+    # leeper = myModules.Resident('Christine','Leeper','leepercm@upmc.edu',6)
+    # lewis = myModules.Resident('Anthony','Lewis','lewisaj@upmc.edu',6)
+    # torres = myModules.Resident('Crisanto','Torres','torrescm@upmc.edu',5)
+    # uy = myModules.Resident('Jamie','Uy','uyjt@upmc.edu',4)
+    # chen = myModules.Resident('Wendy','Chen','chenw2@upmc.edu',4)
+    # schusterman = myModules.Resident('Ash','Schusterman','schustermanma@upmc.edu',4)
+    # browning = myModules.Resident('Jeff','Browning','browningjd@upmc.edu',4)
+    # theisen = myModules.Resident('Katie', 'Theisen','theisenkm@upmc.edu',4)
+    # shaffiey = myModules.Resident('Shahab','Shaffiey','shaffieysa@upmc.edu',7)
+    # mcdonald = myModules.Resident('KerryAnn','McDonald','stewartkc@upmc.edu',7)
 
-    residents = [berkey,cunningham,dyer,goswami,griepentrog,handzel,kirk,kowalsky,leeper,lewis,okolo,siow,tam,torres,vanderwindt,yeh,uy,chen,schusterman,browning,theisen,shaffiey,mcdonald,cyr,dadashzadeh,gallagher,huckaby,kulkarni,myers,nicholson,egro,yecies]
+
+    residents = [dyer,griepentrog,handzel,okolo,siow,tam,vanderwindt,yeh,cyr,dadashzadeh,gallagher,huckaby,kulkarni,myers,nicholson,egro,yecies,beidas,hugar]
+
+    #kirk,kowalsky,leeper,lewis,berkey,cunningham,goswami,torres,uy,chen,schusterman,browning,theisen,shaffiey,mcdonald,
     
     with open(path+'pickles/'+'residents.pickle','wb') as f:
         pickle.dump(residents,f)
