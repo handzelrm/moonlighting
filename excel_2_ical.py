@@ -54,7 +54,7 @@ def pickle_data(path,file):
 
     with open(path+'pickles/'+'callTimes.pickle','wb') as f:
         pickle.dump(callTimes,f)
-    
+
     #creates resident objects
     griepentrog = myModules.Resident('John', 'Griepentrog','griepentrogje@upmc.edu',4)
     handzel = myModules.Resident('Robert', 'Handzel','handzelrm@upmc.edu',4)
@@ -63,6 +63,7 @@ def pickle_data(path,file):
     tam = myModules.Resident('Vernissia','Tam','tamvw@upmc.edu',4)
     vanderwindt = myModules.Resident('Dirk','Van Der Windt','vanderwindtd@upmc.edu',5)
     yeh = myModules.Resident('Andrew','Yeh','yeha@upmc.edu',5)
+    dyer = myModules.Resident('Mitchell','Dyer','dyermr@upmc.edu',5)
     cyr = myModules.Resident('Anthony','Cyr','cyrar@upmc.edu',4)
     dadashzadeh = myModules.Resident('Esmaeel','Dadashzadeh','dadashzadeher@upmc.edu',4)
     gallagher = myModules.Resident('James','Gallagher','gallagherjw@upmc.edu',4)
@@ -74,10 +75,10 @@ def pickle_data(path,file):
     yecies = myModules.Resident('Todd','Yecies','yeciest@upmc.edu',4)
     beidas = myModules.Resident('Omar', 'Beidas', 'beidaso@upmc.edu',4)
     hugar = myModules.Resident('Hugar', '_', '_', 5)
-    
+
     # berkey = myModules.Resident('Sara','Berkey','berkeyse@upmc.edu',5)
     # cunningham = myModules.Resident('Kellie','Cunningham','cunninghamke@upmc.edu',6)
-    # dyer = myModules.Resident('Mitchell','Dyer','dyermr@upmc.edu',5)
+
     # goswami = myModules.Resident('Julie','Goswami','goswamij@upmc.edu',5)
     # kirk = myModules.Resident('Katherine','Hill (Kirk)','kirkka@upmc.edu',4)
     # kowalsky = myModules.Resident('Stacy','Kowalsky','kowalskysj@upmc.edu',5)
@@ -96,7 +97,7 @@ def pickle_data(path,file):
     residents = [dyer,griepentrog,handzel,okolo,siow,tam,vanderwindt,yeh,cyr,dadashzadeh,gallagher,huckaby,kulkarni,myers,nicholson,egro,yecies,beidas,hugar]
 
     #kirk,kowalsky,leeper,lewis,berkey,cunningham,goswami,torres,uy,chen,schusterman,browning,theisen,shaffiey,mcdonald,
-    
+
     with open(path+'pickles/'+'residents.pickle','wb') as f:
         pickle.dump(residents,f)
 
@@ -127,7 +128,7 @@ def createCalendar(cal,eventName,datetimeStart,datetimeEnd):
     cal.add_component(event) #adds event to the calendar object
     return cal #returns the object
     #year, month, day, hour, min, sec, microsec
-    
+
 
 def resident_ical(path, file, send=False):
     #loads call schedule as pandas df
@@ -178,10 +179,10 @@ def resident_ical(path, file, send=False):
 
                 curDate = datetime.date(month=month,day=curDay,year=year) #creates datetime date obect
                 weekday = curDate.strftime("%a") #returns abbreviated day of week
-                
+
                 callStart = datetime.datetime(year=year, month=month, day=curDay, hour=callTimes[curService].weekday(weekday).start.hour, minute=callTimes[curService].weekday(weekday).start.minute,second=0,tzinfo=pytz.timezone('US/Eastern')) #datetime object that adds a day to get correct day/month/year based on calendar. it then edits the hour/min values
-                callEnd = callStart + datetime.timedelta(days=1) 
-                callEnd = callEnd.replace(hour=callTimes[curService].weekday(weekday).end.hour,minute=callTimes[curService].weekday(weekday).end.minute,tzinfo=pytz.timezone('US/Eastern')) 
+                callEnd = callStart + datetime.timedelta(days=1)
+                callEnd = callEnd.replace(hour=callTimes[curService].weekday(weekday).end.hour,minute=callTimes[curService].weekday(weekday).end.minute,tzinfo=pytz.timezone('US/Eastern'))
 
                 cal = createCalendar(cal,curService,callStart,callEnd) #updates the cal file
 
@@ -189,14 +190,14 @@ def resident_ical(path, file, send=False):
                 f.write(cal.to_ical())
 
             curResident = myModules.Staff.find_lastname(residents,res) #will be used in sendoutlookemail)
-            
+
             if send:
                 print(curResident.upmc_email)
-                sendOutlookEmail(curResident.upmc_email, month_str+' iCalendar File', 'Hi,\n\nAttached is your iCalendar file for the month of {}. The iCal file can simply be dragged into your Outlook calendar or uploaded to Google Calendar via the Calendar Settings -> Import calendar. Please let me know if there are any problems. You can always access the most up to date schedule and files at:\nhttps://github.com/handzelrm/moonlighting\n\nThanks,\nRob'.format(month_str), path+'resident icals/'+month_str+'/'+month_str+'_'+res+'_Call.ics') 
-                # return       
+                sendOutlookEmail(curResident.upmc_email, month_str+' iCalendar File', 'Hi,\n\nAttached is your iCalendar file for the month of {}. The iCal file can simply be dragged into your Outlook calendar or uploaded to Google Calendar via the Calendar Settings -> Import calendar. Please let me know if there are any problems. You can always access the most up to date schedule and files at:\nhttps://github.com/handzelrm/moonlighting\n\nThanks,\nRob'.format(month_str), path+'resident icals/'+month_str+'/'+month_str+'_'+res+'_Call.ics')
+                # return
             else:
                 print('\n'+curResident.upmc_email+'\n'+month_str+' iCalendar File', '\nHi,\n\nAttached is your iCalendar file for the month of {}. The iCal file can simply be dragged into your Outlook calendar or uploaded to Google Calendar via the Calendar Settings -> Import calendar. Please let me know if there are any problems. You can always access the most up to date schedule and files at:\nhttps://github.com/handzelrm/moonlighting\n\nThanks,\nRob'.format(month_str))
-                
+
 
 """
 sendOutlookEmail takes inputs who to send it to, subject, body, attachment and will
@@ -236,7 +237,7 @@ def service_ical(path,file):
         os.makedirs(path+'service icals/')
     if not os.path.isdir(path+'service icals/'+month_str+'/'):
         os.makedirs(path+'service icals/'+month_str+'/')
-    
+
     #loops through the services
     for service in services:
         df_service = df[['Date',service]] #new df with just Date (just numbered day of month) and service column)
@@ -252,9 +253,9 @@ def service_ical(path,file):
 
             curDate = datetime.date(month=month,day=curDay,year=year) #creates datetime date obect
             weekday = curDate.strftime("%a") #returns abbreviated day of week
-            
+
             callStart = datetime.datetime(year=year, month=month, day=curDay, hour=callTimes[service].weekday(weekday).start.hour, minute=callTimes[service].weekday(weekday).start.minute,second=0,tzinfo=pytz.timezone('US/Eastern')) #datetime object that adds a day to get correct day/month/year based on calendar. it then edits the hour/min values
-            callEnd = callStart + datetime.timedelta(days=1) 
+            callEnd = callStart + datetime.timedelta(days=1)
             callEnd = callEnd.replace(hour=callTimes[service].weekday(weekday).end.hour,minute=callTimes[service].weekday(weekday).end.minute,tzinfo=pytz.timezone('US/Eastern'))
 
             cal = createCalendar(cal,curRes,callStart,callEnd) #updates the cal fi
@@ -271,12 +272,9 @@ def service_ical(path,file):
 
 
 def main():
-
-
-    file = 'March 2018 Moonlighting Prelim.xlsm'
+    file = 'April 2018 Moonlighting Final.xlsm'
     path=find_path(file)
     print(path)
-
     pickle_data(path=path, file=file)
     resident_ical(path=path, file=file, send=False)
 
